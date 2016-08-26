@@ -1,0 +1,225 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &184698
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 403876}
+  - 114: {fileID: 11495616}
+  - 114: {fileID: 11466106}
+  - 114: {fileID: 11408506}
+  - 114: {fileID: 11498440}
+  - 114: {fileID: 11480532}
+  - 114: {fileID: 11416438}
+  - 114: {fileID: 11415398}
+  - 114: {fileID: 11446180}
+  - 114: {fileID: 11412950}
+  - 114: {fileID: 11450538}
+  m_Layer: 0
+  m_Name: TimeLord
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &403876
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!114 &11408506
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a6941d51a906e914297433e28984eb08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11412950
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 787cd88ae2c262f48aa17b32810288b0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  monsters:
+  - label: xigothSwarm
+    prefab: {fileID: 189284, guid: a4425a202e971f940be16fc3e6c2f77d, type: 2}
+  - label: slowMissileShip
+    prefab: {fileID: 150302, guid: 527b29d669dd40c428bc9995b84710d2, type: 2}
+  - label: medMissileShip
+    prefab: {fileID: 123162, guid: 9208b526264252e47b239ec484c8d904, type: 2}
+  - label: fastMissileShip
+    prefab: {fileID: 115732, guid: 7801469c43bf2e349abac6e3f0ebc96f, type: 2}
+  - label: shieldShip
+    prefab: {fileID: 109368, guid: 63a7046d5ea12cc4da0585b668005a52, type: 2}
+  - label: needleFighter
+    prefab: {fileID: 147156, guid: ebc40fa08c2fa5d45adcef9ad5b35233, type: 2}
+  - label: mine
+    prefab: {fileID: 102734, guid: d3f83430c51cebf4aadcb100e2faef61, type: 2}
+  - label: mineLayer
+    prefab: {fileID: 112118, guid: d0feb08c2e639bc4197c8efff24ae145, type: 2}
+  - label: turret
+    prefab: {fileID: 150800, guid: 1afcefa8d9196a14096af3fb78a4963c, type: 2}
+  - label: xigothSpawner
+    prefab: {fileID: 162792, guid: 89102d94fa957fd48bedaf50d7d441a7, type: 2}
+--- !u!114 &11415398
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93ec671b5b27cb04dafcf1c53624a4bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11416438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9741ed05ea9704989611f677f0a227, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11446180
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b2fc0e84757ab347b35f141b91bf493, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stars:
+  - {fileID: 8300000, guid: df599c7e6cd44364b8895f9ef7f05f30, type: 3}
+  - {fileID: 8300000, guid: 422617d09fd0dcf469d6e6bd1cbbe0db, type: 3}
+  - {fileID: 8300000, guid: 0f65c704ed436c34fbfc9187a965f0d6, type: 3}
+  portalOpening:
+  - {fileID: 8300000, guid: 35b42e9dae4dcc3439f91075ec0835f7, type: 3}
+  rocketFiring:
+  - {fileID: 8300000, guid: e90ca4efec0c07243b4e1eff81713a4b, type: 3}
+--- !u!114 &11450538
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58219511f61159340b4a50678c77cf4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11466106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fbd3f029a06074946b50d83f1d619733, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowCursor: {fileID: 2800000, guid: 990a16900b026a747a839b0c479fa80f, type: 3}
+  monsterLibraryScript: {fileID: 11412950}
+  playerListTextMesh: {fileID: 0}
+  ship_mp_prefab: {fileID: 147510, guid: 7f917d616b2466b49b7750b4dec3adbb, type: 2}
+  rocket_mp_prefab: {fileID: 144172, guid: 727fbf3a974149246aa7fa673cb8cbac, type: 2}
+  mgunBullet_mp_prefab: {fileID: 122950, guid: f7039df1cbd6a554c94053c93ab57034, type: 2}
+  landmine_mp_prefab: {fileID: 157516, guid: 1b9f9c8a55ea47843aedc9e186f9eedf, type: 2}
+  shield_mp_prefab: {fileID: 115788, guid: 510c1c256707ac048897d86966874813, type: 2}
+  networkManagerObj: {fileID: 0}
+  centralText: {fileID: 0}
+  maps:
+  - name: Archive
+    iconMaterial: {fileID: 2100000, guid: 071ac1adc9d8c07429f5329ba380bcdd, type: 2}
+  - name: Cognition
+    iconMaterial: {fileID: 2100000, guid: d10d0a018597ba8479826add20d8ad9e, type: 2}
+  - name: Collider
+    iconMaterial: {fileID: 2100000, guid: e890d68a6a5e3dc4aa8ac09b95505fac, type: 2}
+  - name: Interfractal
+    iconMaterial: {fileID: 2100000, guid: 1e0863a99130a7c40a374ef9b52a3539, type: 2}
+  - name: Matrix
+    iconMaterial: {fileID: 2100000, guid: e716f35251db26444a80283c2e3d545e, type: 2}
+  - name: Orrery
+    iconMaterial: {fileID: 2100000, guid: a3208c060f450c44d87a74d8e8f2414d, type: 2}
+  - name: ReactorCore
+    iconMaterial: {fileID: 2100000, guid: 3fd2fdb5ffb643444a04740bd8be23b3, type: 2}
+  - name: Stacks
+    iconMaterial: {fileID: 2100000, guid: 7a81c58722106cb409d1ac3ab86f8ddb, type: 2}
+  - name: Unwelcome
+    iconMaterial: {fileID: 2100000, guid: c0183c64a5c2f1f418941da44354352b, type: 2}
+  ships:
+  - name: Jack
+    prefab: {fileID: 147510, guid: 66deb1ec68c73ba498f7500c21766a21, type: 2}
+  - name: Susan
+    prefab: {fileID: 147510, guid: 447216aa9a7e8d148b1ccbf980b10214, type: 2}
+  - name: Igor
+    prefab: {fileID: 147510, guid: 38a765cf1457c854295925caca091d54, type: 2}
+--- !u!114 &11480532
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d67ab26d254cbea4b9ee8dc255663ccb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11495616
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c39b77e2d3f4cc479e1d71bdbda2b64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &11498440
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 184698}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5faccef790f8d714684fda6e0e3e6ce0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!1001 &100100000
+Prefab:
+  m_ObjectHideFlags: 1
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications: []
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 0}
+  m_RootGameObject: {fileID: 184698}
+  m_IsPrefabParent: 1
