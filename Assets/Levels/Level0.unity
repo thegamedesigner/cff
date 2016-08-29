@@ -766,6 +766,52 @@ Transform:
   m_PrefabParentObject: {fileID: 4000010558862718, guid: bfdaf43dbe955d84a865bedf709f4b4e,
     type: 2}
   m_PrefabInternal: {fileID: 645752530}
+--- !u!1001 &881081510
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 188.6628
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 43.406143
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4000011953255516, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1000010851442476, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_ParentPrefab: {fileID: 100100000, guid: d7d81f7450103234591e86f3f54b387f, type: 2}
+  m_IsPrefabParent: 0
 --- !u!1 &889804609
 GameObject:
   m_ObjectHideFlags: 0
@@ -1331,6 +1377,18 @@ MonoBehaviour:
     type: 2}
   circleBlipPrefab: {fileID: 1000010921859620, guid: 4d3e7bcd5a0ef5648bcd7b380c176075,
     type: 2}
+  linePrefab: {fileID: 1000012612013778, guid: ad34b84170c19b3438c7259040c86357, type: 2}
+  red: {fileID: 2100000, guid: 73908506e25f7f447b2c5f1a1648f2b2, type: 2}
+  blue: {fileID: 2100000, guid: 46475b4903411c54e82786a00d14a091, type: 2}
+  green: {fileID: 2100000, guid: cb1ced253654a764dbdf2f4544d658ef, type: 2}
+  white: {fileID: 2100000, guid: ee430aaf908cd23498f7ad1bb75be6ea, type: 2}
+  grey: {fileID: 2100000, guid: f46a2247522262c479bf65a6589a3faf, type: 2}
+  black: {fileID: 2100000, guid: 9e039dabbc1468f4296f4cff0502dcb5, type: 2}
+  yellow: {fileID: 2100000, guid: 6f46dc5dea8324a4cb8d7350c0d00ecc, type: 2}
+  ltBlue: {fileID: 2100000, guid: ca53b6bdaf713ea42a7d3785dac3a44b, type: 2}
+  dkBlue: {fileID: 2100000, guid: 419177f534a399842ac7b26f397e26c5, type: 2}
+  cyan: {fileID: 2100000, guid: e567310591a821a4dbabdf72df4da9ab, type: 2}
+  orange: {fileID: 2100000, guid: f78e7ae9f3fe2b048afca29ab988a627, type: 2}
 --- !u!1 &1779656421
 GameObject:
   m_ObjectHideFlags: 0
@@ -1371,7 +1429,7 @@ Behaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1779656421}
-  m_Enabled: 0
+  m_Enabled: 1
 --- !u!20 &1779656425
 Camera:
   m_ObjectHideFlags: 0

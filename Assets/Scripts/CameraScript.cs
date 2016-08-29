@@ -74,7 +74,7 @@ public class CameraScript : MonoBehaviour
 		vel *= 0.5f;
 
 		//Place camera
-		transform.position = Setup.ProjectVec(CameraNode.transform.position,CameraNode.transform.localEulerAngles,dist,Vector3.forward);
+		transform.position = MathFuncs.ProjectVec(CameraNode.transform.position,CameraNode.transform.localEulerAngles,dist,Vector3.forward);
 
 		//Look at CameraNode
 		transform.LookAt(CameraNode.transform.position);

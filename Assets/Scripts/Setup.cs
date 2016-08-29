@@ -4,20 +4,6 @@ using System.Collections.Generic;
 
 public class Setup : MonoBehaviour
 {
-	
-	public static Vector3 ProjectVec(Vector3 vec1, Vector3 ang, float dist, Vector3 dir)
-	{
-		if (!xa.emptyObj)
-		{
-			GameObject go = new GameObject();
-			xa.emptyObj = go;
-		}
-		xa.emptyObj.transform.position = vec1;
-		xa.emptyObj.transform.localEulerAngles = ang;
-		xa.emptyObj.transform.Translate(dir * dist);
-		return (xa.emptyObj.transform.position);
-	}
-
 	public static void SetAlpha(GameObject go, float a)
 	{
 		Color tColour;
@@ -66,7 +52,7 @@ public class Setup : MonoBehaviour
 
 		return (dist);
 	}
-	
+
 	public static int RollLeftOrRight(Vector3 pos, Vector3 ang, Vector3 ang3)
 	{
 		Vector3 pos2;
@@ -142,7 +128,7 @@ public class Setup : MonoBehaviour
 
 		return yourRotation;
 	}
-	
+
 	public static void GUIDrawX(Vector3 pos, Color color, float size)
 	{
 		Debug.DrawLine(new Vector3(pos.x - size, pos.y + size, pos.z), new Vector3(pos.x + size, pos.y - size, pos.z), color);
@@ -187,17 +173,9 @@ public class Setup : MonoBehaviour
 	{
 		Debug.DrawLine(new Vector3(pos1.x - 0.1f, pos1.y - 0.1f, pos1.z), new Vector3(pos2.x - 0.1f, pos2.y - 0.1f, pos2.z), color1);
 	}
-	
-	//First vec is yours, the second is what youre pointing at.
-	public static float ReturnAngleTowardsVec(Vector3 vec1, Vector3 vec2)
-	{
-		return ((Mathf.Atan2((vec2.y - vec1.y), (vec2.x - vec1.x)) * Mathf.Rad2Deg));
-	}
 
 	public static Vector3 ProjectVecRotation(Vector3 myPos, Vector3 angAddition, Quaternion myRotation, float dist, Vector3 dir)
 	{
-		//This could be much more efficient if I just did it with math instead of gameobjects.
-
 		if (!xa.emptyObj) { return (myPos); }//if the object is null, just return the same vector out.
 		xa.emptyObj.transform.position = myPos;
 		xa.emptyObj.transform.rotation = myRotation;
@@ -296,18 +274,6 @@ public class Setup : MonoBehaviour
 		return Vector2.Distance(new Vector2(v1, 0), new Vector2(v2, 0));
 	}
 
-	public static bool CheckCone(float dist, float width, float angle, Vector2 coneOrigin, Vector2 pos)
-	{
-		if (Vector2.Distance(coneOrigin, pos) <= dist)
-		{
-			float result = ReturnAngleTowardsVec(coneOrigin, pos);
-			while (result >= 360) { result -= 360; }
-			if (Dist(angle, result) < width) { return true; }
-			if (Dist(angle, result + 360) < width) { return true; }
-		}
-		return false;
-	}
-
 	public static bool SameSide(Vector3 p1, Vector3 p2, Vector3 a, Vector3 b)
 	{
 		Vector3 cp1 = Vector3.Cross(b - a, p1 - a);
@@ -335,47 +301,4 @@ public class Setup : MonoBehaviour
 		return result;
 	}
 
-	public static bool isXYinRect(Vector2 xy, Vector2 v1, Vector2 v2, Vector2 v3, Vector2 v4)
-	{
-		/*
-        r: A list of four points, each has a x- and a y- coordinate
-        P: A point
-		 */
-
-
-		/*
-		
-    float areaRectangle = 0.5*abs(
-		//                y_A      y_C      x_D      x_B
-                        (r[0][1]-r[2][1])*(r[3][0]-r[1][0])
-        //                  y_B     y_D       x_A     x_C
-                      + (r[1][1]-r[3][1])*(r[0][0]-r[2][0])
-                    )
-
-    float ABP = 0.5*(
-             r[0][0]*(r[1][1]-r[2][1])
-            +r[1][0]*(r[2][1]-r[0][1])
-            +r[2][0]*(r[0][1]-r[1][1])
-          )
-    float BCP = 0.5*(
-             r[1][0]*(r[2][1]-r[3][1])
-            +r[2][0]*(r[3][1]-r[1][1])
-            +r[3][0]*(r[1][1]-r[2][1])
-          )
-    floatCDP = 0.5*(
-             r[2][0]*(r[3][1]-r[0][1])
-            +r[3][0]*(r[0][1]-r[2][1])
-            +r[0][0]*(r[2][1]-r[3][1])
-          )
-    floatDAP = 0.5*(
-             r[3][0]*(r[0][1]-r[1][1])
-            +r[0][0]*(r[1][1]-r[3][1])
-            +r[1][0]*(r[3][1]-r[0][1])
-          )
-    return areaRectangle == (ABP+BCP+CDP+DAP)
-	*?
-	*/
-
-		return false;
-	}
 }

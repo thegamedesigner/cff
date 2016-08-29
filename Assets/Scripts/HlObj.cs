@@ -18,14 +18,55 @@ public class HlObj : NetworkBehaviour
 
 	[ClientRpc]
 	public void RpcChat(string str) { ChatScript.ChatLocallyAndLog(str); }
-
-
-	//CreateObj order
-	[Command]
-	public void CmdSendOrder(int order, int clId, Vector3 mousePos, int objType)//Sends an order from the client to the server
+	
+	//Ticks & gamestate
+	[ClientRpc]
+	public void RpcBroadcastGameState(Ticks.GameState gameState)
 	{
-		//On the server, record the order. It will enact it as soon as can (based on lockstep eventually, right now it just enacts it at once)
-		OrderFuncs.RecordOrder(order, clId, mousePos, objType);
+		Ticks.ApplyTickOnClient(gameState);
+
+		//Now, on each client, store the gamestate
+		Ticks.gameStates.Add(gameState);
+
+		//then apply the gamestate to those objects that have changed
+	}
+
+	//Create Obj
+	[Command]
+	public void CmdCreateObj(int clId, Vector3 pos, int objType)//Sends an order from the client to the server
+	{
+		int uId = ObjFuncs.GetUniqueId();
+		ChatScript.ChatLocally("CreateObj on Sv. uId: " + uId);
+		RpcCreateObj(clId, pos, objType, uId);
+	}
+	[ClientRpc]
+	public void RpcCreateObj(int clId, Vector3 pos, int objType, int uId)
+	{
+		//create the object on all clients
+		ChatScript.ChatLocally("CreateObj on Cl. uId: " + uId);
+		//Trigger local effect
+		Effects.CircleBlip(pos, 5, 3);
+
+		//Create the correct object of type
+		ObjFuncs.CreateObj((ObjFuncs.Type)objType, pos, Vector3.zero, clId, uId);
+	}
+
+	//Move orders
+	[Command]
+	public void CmdMoveOrder(int clId, Vector3 pos, int[] unitIds)//Sends an order from the client to the server
+	{
+		Orders.MoveOrder(pos, clId, unitIds);
+
+		RpcMoveOrder(clId, pos, unitIds);
+	}
+
+	[ClientRpc]
+	public void RpcMoveOrder(int clId, Vector3 pos, int[] unitIds)
+	{
+		Orders.MoveOrder(pos, clId, unitIds);
+
+		//Trigger local effect
+		Effects.MoveOrderEffect(pos);
 	}
 
 
@@ -93,15 +134,24 @@ public class HlObj : NetworkBehaviour
 
 	void Update()
 	{
+		if(isLocalPlayer)
+		{
+			if(Input.GetKeyDown(KeyCode.G)) {ChatScript.ChatLocally("G key pressed! " + hl.local_uId); }
+			
+			Cl_Orders.InputOrders();//detect keyboard & mouse input, as orders, and send them to the server
+
+		}
+
 		if (isServer)
 		{
 			ServerSideLoop.UpdateServer();
+
+			Ticks.HandleTicks();//Send out ticks
 		}
 
 		if (isClient)
 		{
 			ClientSideLoop.UpdateClient();
-
 		}
 	}
 }
