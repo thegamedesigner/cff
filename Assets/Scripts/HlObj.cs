@@ -29,6 +29,7 @@ public class HlObj : NetworkBehaviour
 		Ticks.gameStates.Add(gameState);
 
 		//then apply the gamestate to those objects that have changed
+		
 	}
 
 	//Create Obj

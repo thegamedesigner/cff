@@ -17,13 +17,20 @@ public class Ticks : MonoBehaviour
 		End
 	}
 
+	[System.Serializable]
 	public class GameState
 	{
 		public float timeStamp = -1;//In ms
 		public bool applied = false;
-		public int[] uIds;
-		public int[] syncdVars;
-		public object[] newValues;
+		public GameItem[] items;
+	}
+
+	[System.Serializable]
+	public class GameItem
+	{
+		public int uId;
+		public int syncdVar;
+		public float[] newValue;
 	}
 
 	public static float tickRate = 0.05f;
@@ -36,10 +43,16 @@ public class Ticks : MonoBehaviour
 		{
 			tickRateTimeSet = Time.timeSinceLevelLoad;
 
-			GameState g = CreateGameState();
+			if (hl.hlObj != null)
+			{
+				GameState g = CreateGameState();
 
-			//send this tick
-			hl.hlObj.RpcBroadcastGameState(g);
+				if(g != null)
+				{
+				//send this tick
+				hl.hlObj.RpcBroadcastGameState(g);
+				}
+			}
 		}
 
 	}
@@ -47,15 +60,14 @@ public class Ticks : MonoBehaviour
 	public static GameState CreateGameState()
 	{
 		//Prepare a gameState
-		GameState g = new GameState();//gamestate.
+		GameState g = new GameState();//gamestate. A GameState is a list of GameItems.
 		GameState cg = new GameState();//Complete gamestate. Not pared down based on what has changed.
 		g.timeStamp = Time.timeSinceLevelLoad;
 
 		//Create some temp lists to fill
-		List<int> uIds = new List<int>();
-		List<SyncdVars> syncdVars = new List<SyncdVars>();
-		List<object> newValues = new List<object>();
+		List<GameItem> items = new List<GameItem>();
 
+		if (ObjFuncs.objs.Count <= 0) { return null; }
 		//loop through every object
 		for (int i = 0; i < ObjFuncs.objs.Count; i++)
 		{
@@ -67,18 +79,27 @@ public class Ticks : MonoBehaviour
 			//(this is moving them into the same format, so I can more easily check if they've changed from last time)
 
 			//Goal
-			uIds.Add(o.uId);
-			syncdVars.Add(SyncdVars.Goal);
-			newValues.Add((object)o.goal);
+			GameItem item = new GameItem();
+			item.uId = o.uId;
+			item.syncdVar = (int)SyncdVars.Goal;
+			item.newValue = new float[3];
+			item.newValue[0] = o.goal.x;
+			item.newValue[1] = o.goal.y;
+			item.newValue[2] = o.goal.z;
+
+			items.Add(item);
 		}
 
 		//Copy to cg, CompleteGamestate, so I can store that.
-		cg.uIds = new int[uIds.Count];
-		cg.syncdVars = new int[syncdVars.Count];
-		cg.newValues = new object[newValues.Count];
-		for (int i = 0; i < cg.uIds.Length; i++) { cg.uIds[i] = uIds[i]; }
-		for (int i = 0; i < cg.syncdVars.Length; i++) { cg.syncdVars[i] = (int)syncdVars[i]; }
-		for (int i = 0; i < cg.newValues.Length; i++) { cg.newValues[i] = newValues[i]; }
+		cg.items = new GameItem[items.Count];
+		for (int i = 0; i < cg.items.Length; i++)
+		{
+			cg.items[i] = new GameItem();
+			cg.items[i].uId = items[i].uId;
+			cg.items[i].syncdVar = items[i].syncdVar;
+			cg.items[i].newValue = items[i].newValue;
+
+		}
 		completeGameStates.Add(cg);
 
 		//Now compare it to the last complete game state, and cut out all the parts that haven't changed values
@@ -86,12 +107,15 @@ public class Ticks : MonoBehaviour
 		//(dont bother right now, just send complete game states until the system is proven to work, then add this)
 
 		//add the remaining items on the list to the gamestate
-		g.uIds = new int[uIds.Count];
-		g.syncdVars = new int[syncdVars.Count];
-		g.newValues = new object[newValues.Count];
-		for (int i = 0; i < g.uIds.Length; i++) { g.uIds[i] = uIds[i]; }
-		for (int i = 0; i < g.syncdVars.Length; i++) { g.syncdVars[i] = (int)syncdVars[i]; }
-		for (int i = 0; i < g.newValues.Length; i++) { g.newValues[i] = newValues[i]; }
+		g.items = new GameItem[items.Count];
+		for (int i = 0; i < g.items.Length; i++)
+		{
+			g.items[i] = new GameItem();
+			g.items[i].uId = items[i].uId;
+			g.items[i].syncdVar = items[i].syncdVar;
+			g.items[i].newValue = items[i].newValue;
+
+		}
 
 		return g;
 	}
@@ -99,31 +123,41 @@ public class Ticks : MonoBehaviour
 	//Called on the client, applys these changes to the objects
 	public static void ApplyTickOnClient(GameState g)
 	{
-		//Create some temp lists to fill
-		List<int> uIds = new List<int>();
-		List<SyncdVars> syncdVars = new List<SyncdVars>();
-		List<object> newValues = new List<object>();
+		//Create a temp list to fill
+		List<GameItem> items = new List<GameItem>();
 
-		//fill the lists
-		for (int i = 0; i < g.uIds.Length; i++) { uIds.Add(uIds[i]); }
-		for (int i = 0; i < g.syncdVars.Length; i++) { syncdVars.Add((SyncdVars)syncdVars[i]); }
-		for (int i = 0; i < g.newValues.Length; i++) { newValues.Add(newValues[i]); }
+		//fill the list
+		for (int i = 0; i < g.items.Length; i++)
+		{
+			GameItem gi = new GameItem();
+			gi.uId = g.items[i].uId;
+			gi.syncdVar = g.items[i].syncdVar;
+			gi.newValue = g.items[i].newValue;
+			items.Add(gi);
+		}
 		ObjFuncs.Obj o;
 
 		//go through every item in the lists
-		for (int i = 0; i < uIds.Count; i++)
+		for (int i = 0; i < items.Count; i++)
 		{
-			//find the object
-			if (uIds[i] < ObjFuncs.objs.Count && uIds[i] >= 0)//Isn't an invalid ID as far as we can tell
+			//find the object, by looping through all objects and comparing the ID
+
+			int index = ObjFuncs.GetObjIndexForUID(items[i].uId);
+			if (index != -1)
 			{
-				if (ObjFuncs.objs[i] != null)
+				if (ObjFuncs.objs[index] != null)
 				{
-					o = ObjFuncs.objs[i];
+					o = ObjFuncs.objs[index];
 
 					//now apply to the objs. (doesn't always have to apply directly to the source variable. It could sync from pos to desiredPos, for example, and assume the unit will handle that itself.
-					switch (syncdVars[i])
+					switch ((SyncdVars)items[i].syncdVar)
 					{
-						case SyncdVars.Goal:o.goal = (Vector3)newValues[i];break;
+						case SyncdVars.Goal:
+							float[] v = items[i].newValue;
+							o.goal = new Vector3((float)v[0], (float)v[1], (float)v[2]);
+							xa.goal = o.goal;
+							break;
+
 					}
 				}
 			}

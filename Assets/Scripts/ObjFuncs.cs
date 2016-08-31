@@ -71,7 +71,7 @@ public class ObjFuncs : MonoBehaviour
 
 	public static void UpdateObjsOnServer()
 	{
-		MoveUnits();//Move the units
+		//MoveUnits();//Move the units
 	}
 
 	public static void UpdateObjsLocally()
@@ -122,4 +122,14 @@ public class ObjFuncs : MonoBehaviour
 			}
 		}
 	}
+
+	public static int GetObjIndexForUID(int uId)
+	{
+		for(int i = 0;i < objs.Count;i++)
+		{
+			if(objs[i].uId == uId) {return i; }
+		}
+		return -1;
+	}
+
 }

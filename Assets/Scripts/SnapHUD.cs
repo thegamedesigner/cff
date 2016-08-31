@@ -38,9 +38,12 @@ public class SnapHUD : MonoBehaviour
 			if(hudItems[i].horSnap == HUDItem.Hor.Left) {hudItems[i].go.transform.SetX(topLeftCorner.x); }
 			if(hudItems[i].horSnap == HUDItem.Hor.Center) {hudItems[i].go.transform.SetX(center.x); }
 			if(hudItems[i].horSnap == HUDItem.Hor.Right) {hudItems[i].go.transform.SetX(bottomRightCorner.x); }
-			if(hudItems[i].verSnap == HUDItem.Ver.Top) {hudItems[i].go.transform.SetX(topLeftCorner.y); }
-			if(hudItems[i].verSnap == HUDItem.Ver.Center) {hudItems[i].go.transform.SetX(center.y); }
-			if(hudItems[i].verSnap == HUDItem.Ver.Bottom) {hudItems[i].go.transform.SetX(bottomRightCorner.y); }
+
+			if(hudItems[i].verSnap == HUDItem.Ver.Top) {hudItems[i].go.transform.SetY(topLeftCorner.y); }
+			if(hudItems[i].verSnap == HUDItem.Ver.Center) {hudItems[i].go.transform.SetY(center.y); }
+			if(hudItems[i].verSnap == HUDItem.Ver.Bottom) {hudItems[i].go.transform.SetY(bottomRightCorner.y); }
+
+			//Debug.Log("HERE " + i + ", x: " + hudItems[i].go.transform.position.x + ", y: " + hudItems[i].go.transform.position.y);
 		}
 	}
 
@@ -58,5 +61,6 @@ public class SnapHUD : MonoBehaviour
 		ray = cam.ScreenPointToRay(new Vector3(Screen.width * 0.5f, Screen.height * 0.5f, 0));
 		center = ray.GetPoint(1);
 
+		//Debug.Log("Corners: " + topLeftCorner + ", " + bottomRightCorner + ", " + center);
 	}
 }

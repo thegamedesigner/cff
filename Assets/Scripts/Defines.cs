@@ -8,5 +8,6 @@ public class Defines : MonoBehaviour
 	public Camera globalMainCam;
 	public Camera hudCamera;
 	public GameObject selectionCirclePrefab;
+	public TextMesh debugText;
 
 }

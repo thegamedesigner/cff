@@ -12,4 +12,7 @@ public class xa : MonoBehaviour
 	
     public static GameObject emptyObj = null;
     public static GameObject mainNodeObj = null;
+	
+	public static Vector3 lastGoal = Vector3.zero;
+	public static Vector3 goal = Vector3.one;
 }

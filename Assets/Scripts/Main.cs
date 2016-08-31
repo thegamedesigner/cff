@@ -4,7 +4,7 @@ using System.Collections;
 public class Main : MonoBehaviour
 {
 	public static Main self;
-	
+
 	void Awake()
 	{
 		if (!self)
@@ -24,7 +24,7 @@ public class Main : MonoBehaviour
 		xa.mainNodeObj = this.gameObject;
 
 	}
-	
+
 	//First function called in the entire game, on level load (except awake)
 	void Start()
 	{
@@ -39,6 +39,13 @@ public class Main : MonoBehaviour
 	void Update()
 	{
 		Effects.UpdateEffects();
+
+		if (xa.lastGoal.x != xa.goal.x && xa.lastGoal.z != xa.goal.z)
+		{
+			xa.lastGoal = xa.goal;
+			if(xa.de.debugText.text.Length > 1000) {xa.de.debugText.text = ""; }
+			xa.de.debugText.text += "\nGoal: " + xa.goal;
+		}
 	}
 
 	void OnGUI()
