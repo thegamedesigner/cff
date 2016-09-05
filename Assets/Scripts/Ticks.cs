@@ -47,10 +47,10 @@ public class Ticks : MonoBehaviour
 			{
 				GameState g = CreateGameState();
 
-				if(g != null)
+				if (g != null)
 				{
-				//send this tick
-				hl.hlObj.RpcBroadcastGameState(g);
+					//send this tick
+					hl.hlObj.RpcBroadcastGameState(g);
 				}
 			}
 		}
@@ -86,7 +86,6 @@ public class Ticks : MonoBehaviour
 			item.newValue[0] = o.goal.x;
 			item.newValue[1] = o.goal.y;
 			item.newValue[2] = o.goal.z;
-
 			items.Add(item);
 		}
 
@@ -104,19 +103,77 @@ public class Ticks : MonoBehaviour
 
 		//Now compare it to the last complete game state, and cut out all the parts that haven't changed values
 		//...Do this here...
+		if(completeGameStates.Count > 2)
+		{
+			g = CompareTicks(items, completeGameStates[completeGameStates.Count - 2]);
+			if (g == null) { Debug.Log("Something is wrong. This should never return null."); }
+		}
+		else
+		{
+			g = cg;//Just send the full state. There has only ever been 1 tick so far.
+		}
 		//(dont bother right now, just send complete game states until the system is proven to work, then add this)
 
-		//add the remaining items on the list to the gamestate
-		g.items = new GameItem[items.Count];
-		for (int i = 0; i < g.items.Length; i++)
+		return g;
+	}
+
+	public static GameState CompareTicks(List<GameItem> items, GameState ls)
+	{
+		//Compare these two states, remove any that match
+		
+		if (items == null) { return null; }
+		if (ls.items == null) { return null; }
+		for (int i = 0; i < items.Count; i++)
 		{
-			g.items[i] = new GameItem();
-			g.items[i].uId = items[i].uId;
-			g.items[i].syncdVar = items[i].syncdVar;
-			g.items[i].newValue = items[i].newValue;
+			//does this exact order exist in the LastState?
+			for (int a = 0; a < ls.items.Length; a++)
+			{
+				if (items[i].uId == ls.items[a].uId &&
+						items[i].syncdVar == ls.items[a].syncdVar)
+				{
+					//now compare the value
+					switch((SyncdVars)(items[i].syncdVar))
+					{
+						case SyncdVars.Goal:
+							Vector3 v1 = new Vector3(items[i].newValue[0], items[i].newValue[1], items[i].newValue[2]);
+							Vector3 v2 = new Vector3(ls.items[i].newValue[0], ls.items[i].newValue[1], ls.items[i].newValue[2]);
+							if(v1.x == v2.x && v1.y == v2.y && v1.z == v2.z)
+							{
+								//then remove it from items
+								items[i].uId = -1;
+							}
+							break;
+					}
+
+				}
+			}
 
 		}
+		
+		//Create g, and return it
+		GameState g = new GameState();
+		int count = 0;
+		for (int i = 0; i < items.Count; i++)
+		{
+			if(items[i].uId != -1) {count++; }
+		}
+		g.items = new GameItem[count];
+		int index3 = 0;
+		int index2 = 0;
+		while (index3 < count)
+		{
+			if(items[index2].uId != -1)
+			{
+				g.items[index3] = new GameItem();
+				g.items[index3].uId = items[index2].uId;
+				g.items[index3].syncdVar = items[index2].syncdVar;
+				g.items[index3].newValue = items[index2].newValue;
+				index3++;
+			}
+			index2++;
+		}
 
+		//Debug.Log("Compared Ticks. Total: " + items.Count + ", compressed: " + count);
 		return g;
 	}
 
@@ -156,8 +213,8 @@ public class Ticks : MonoBehaviour
 							float[] v = items[i].newValue;
 							o.goal = new Vector3((float)v[0], (float)v[1], (float)v[2]);
 							xa.goal = o.goal;
+							xa.de.debugText.text += "\nReceived goal";
 							break;
-
 					}
 				}
 			}

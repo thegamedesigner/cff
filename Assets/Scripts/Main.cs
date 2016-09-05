@@ -43,8 +43,13 @@ public class Main : MonoBehaviour
 		if (xa.lastGoal.x != xa.goal.x && xa.lastGoal.z != xa.goal.z)
 		{
 			xa.lastGoal = xa.goal;
-			if(xa.de.debugText.text.Length > 1000) {xa.de.debugText.text = ""; }
+			if (xa.de.debugText.text.Length > 700) { xa.de.debugText.text = ""; }
 			xa.de.debugText.text += "\nGoal: " + xa.goal;
+		}
+
+		if (Input.GetKeyDown(KeyCode.T))
+		{
+			ObjFuncs.CreateAllGrids();
 		}
 	}
 

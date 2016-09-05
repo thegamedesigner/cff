@@ -8,8 +8,6 @@ public class ClientSideLoop : MonoBehaviour
 	{
 		ManageGame();//Handle game logic, what little needs to happen on the client-side
 		
-		SelectionScript.HandleSelection();//Handles local selection box
-		
 		ObjFuncs.UpdateObjsLocally();//Handles objs locally.
 	}
 

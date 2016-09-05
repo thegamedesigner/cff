@@ -11,16 +11,18 @@ public class SelectionScript : MonoBehaviour
 	public static Vector3 a = Vector3.zero;
 	public static Vector3 b = Vector3.zero;
 
-	public static void HandleSelection()
+	public static void HandleSelection(Cl_Orders.MouseOrders mouseOrder)
 	{
-		if (Input.GetMouseButtonDown(0))
+		//if (Input.GetMouseButtonDown(0))
+		if(mouseOrder == Cl_Orders.MouseOrders.SelectionBox_StartDragging)
 		{
 			dragging = true;
 			a =  Vector3.zero;
 			b =  Vector3.zero;
 			startPos = Input.mousePosition;
 		}
-		if (Input.GetMouseButtonUp(0))
+		//if (Input.GetMouseButtonUp(0))
+		if(mouseOrder == Cl_Orders.MouseOrders.SelectionBox_StopDragging)
 		{
 			startPos = Vector3.zero;
 			endPos = Vector3.zero;

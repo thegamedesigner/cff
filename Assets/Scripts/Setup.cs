@@ -274,6 +274,11 @@ public class Setup : MonoBehaviour
 		return Vector2.Distance(new Vector2(v1, 0), new Vector2(v2, 0));
 	}
 
+	public static float DistXZ(Vector3 v1, Vector3 v2)//A 3d vector dist, that flattens to the xz
+	{
+		return Vector3.Distance(new Vector3(v1.x, 0, v1.z), new Vector3(v2.x, 0, v2.z));
+	}
+
 	public static bool SameSide(Vector3 p1, Vector3 p2, Vector3 a, Vector3 b)
 	{
 		Vector3 cp1 = Vector3.Cross(b - a, p1 - a);

@@ -46,7 +46,7 @@ public class HlObj : NetworkBehaviour
 		//create the object on all clients
 		ChatScript.ChatLocally("CreateObj on Cl. uId: " + uId);
 		//Trigger local effect
-		Effects.CircleBlip(pos, 5, 3);
+		Effects.CircleBlip(pos, 3, 6, 1);
 
 		//Create the correct object of type
 		ObjFuncs.CreateObj((ObjFuncs.Type)objType, pos, Vector3.zero, clId, uId);

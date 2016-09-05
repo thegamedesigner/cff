@@ -7,6 +7,7 @@ public class Effects : MonoBehaviour
 	public GameObject moveOrderPrefab;
 	public GameObject circleBlipPrefab;
 	public GameObject linePrefab;//a 1x1x1 cube, with the renderer turned off
+	public GameObject bubblesPrefab;
 
 	public Material red;
 	public Material blue;
@@ -50,18 +51,25 @@ public class Effects : MonoBehaviour
 		Instantiate(xa.ef.moveOrderPrefab, pos, new Quaternion(0, 0, 0, 0));
 	}
 
-	public static void CircleBlip(Vector3 pos) { CircleBlip(pos, 0.3f, 1); }
-	public static void CircleBlip(Vector3 pos, float totalTime, float scaleTo)//Creates a expanding & fading disk. Lasts 0.3 seconds before scaing out
+	public static void CircleBlip(Vector3 pos) { CircleBlip(pos, 0.3f, 2, 1); }
+	public static void CircleBlip(Vector3 pos, float totalTime, float scaleTo, float startingScale)//Creates a expanding & fading disk. Lasts 0.3 seconds before scaing out
 	{
 		GameObject go = (GameObject)Instantiate(xa.ef.circleBlipPrefab, pos, new Quaternion(0, 0, 0, 0));
 
-		go.transform.SetScaleX(0);
-		go.transform.SetScaleZ(0);
+		go.transform.SetScaleX(startingScale);
+		go.transform.SetScaleZ(startingScale);
 		iTween.ScaleTo(go, iTween.Hash("x", scaleTo, "z", scaleTo, "islocal", true, "easetype", iTween.EaseType.easeInOutSine, "time", totalTime));
 		iTween.FadeTo(go, iTween.Hash("alpha", 0, "easetype", iTween.EaseType.easeInOutSine, "time", totalTime));
 
 		DestroyAfterTimer script = go.AddComponent<DestroyAfterTimer>();
 		script.timeInSeconds = totalTime + 0.1f;
+	}
+
+	public static void Bubbles(Vector3 pos)
+	{
+		GameObject go = (GameObject)Instantiate(xa.ef.bubblesPrefab, pos, new Quaternion(0, 0, 0, 0));
+		DestroyAfterTimer script = go.AddComponent<DestroyAfterTimer>();
+		script.timeInSeconds = 2f;
 	}
 
 	public static List<RequestedLine> requestedLines;
@@ -124,17 +132,17 @@ public class Effects : MonoBehaviour
 	{
 		switch (color)
 		{
-			case Colors.Red:return xa.ef.red;
-			case Colors.Green:return xa.ef.green;
-			case Colors.Black:return xa.ef.black;
-			case Colors.White:return xa.ef.white;
-			case Colors.Grey:return xa.ef.grey;
-			case Colors.Yellow:return xa.ef.yellow;
-			case Colors.Orange:return xa.ef.orange;
-			case Colors.Blue:return xa.ef.blue;
-			case Colors.LtBlue:return xa.ef.ltBlue;
-			case Colors.DkBlue:return xa.ef.dkBlue;
-			case Colors.Cyan:return xa.ef.cyan;
+			case Colors.Red: return xa.ef.red;
+			case Colors.Green: return xa.ef.green;
+			case Colors.Black: return xa.ef.black;
+			case Colors.White: return xa.ef.white;
+			case Colors.Grey: return xa.ef.grey;
+			case Colors.Yellow: return xa.ef.yellow;
+			case Colors.Orange: return xa.ef.orange;
+			case Colors.Blue: return xa.ef.blue;
+			case Colors.LtBlue: return xa.ef.ltBlue;
+			case Colors.DkBlue: return xa.ef.dkBlue;
+			case Colors.Cyan: return xa.ef.cyan;
 		}
 		return xa.ef.red;
 	}
